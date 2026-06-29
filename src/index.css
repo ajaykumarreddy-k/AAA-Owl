@@ -1,0 +1,279 @@
+@import "tailwindcss";
+
+html {
+    scroll-behavior: smooth;
+}
+
+@theme {
+    --color-paper: #EBE7DB;
+    /* The main warm beige */
+    --color-paper-dark: #D8D3C3;
+    /* Darker beige for the text box */
+    --color-ink: #1a1a1a;
+    /* Black for lines/text */
+    --color-highlight: #7dd3fc;
+    /* Cyan highlight */
+
+    --font-serif: "Google Sans", Roboto, sans-serif;
+    --font-sans: "Google Sans", Roboto, sans-serif;
+    --font-mono: "Google Sans Mono", "IBM Plex Mono", monospace;
+}
+
+body {
+    background-color: #EBE7DB;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+    color: #1a1a1a;
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* Premium noise texture */
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    pointer-events: none;
+    opacity: 0.03;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+}
+
+/* Full container shadow and sizing */
+.app-container {
+    width: 100vw;
+    height: 100vh;
+}
+
+/* Subtle grid background */
+.grid-bg {
+    position: absolute;
+    inset: 0;
+    background-size: 80px 80px;
+    background-image:
+        linear-gradient(to right, rgba(0, 0, 0, 0.03) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(0, 0, 0, 0.03) 1px, transparent 1px);
+    z-index: 0;
+    pointer-events: none;
+}
+
+/* Highlight block matching the image */
+.highlight {
+    background-color: #8DE4E8;
+    /* Precise cyan from image */
+    display: inline;
+    padding: 2px 4px;
+    box-decoration-break: clone;
+    -webkit-box-decoration-break: clone;
+}
+
+/* Blinking cursor */
+.cursor-blink::after {
+    content: '|';
+    color: #1a1a1a;
+    animation: blink 1s step-end infinite;
+    font-weight: 300;
+    margin-left: 2px;
+}
+
+@keyframes blink {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0;
+    }
+}
+
+/* 3D Isometric Graphics */
+.iso-wrapper {
+    position: relative;
+    width: 320px;
+    height: 500px;
+    perspective: 2000px;
+    /* high perspective keeps it relatively orthographic */
+}
+
+.iso-layer {
+    position: absolute;
+    left: 50%;
+    width: 160px;
+    height: 160px;
+    margin-left: -80px;
+    transform-style: preserve-3d;
+    transform: rotateX(60deg) rotateZ(-45deg);
+}
+
+/* Vertically stack the layers */
+.layer-1 {
+    top: 30px;
+}
+
+.layer-2 {
+    top: 190px;
+}
+
+.layer-3 {
+    top: 350px;
+}
+
+/* The common wireframe box setup */
+.iso-face-top {
+    position: absolute;
+    inset: 0;
+    border: 1px solid #1a1a1a;
+    background: #FAFAF7;
+    /* Bright white top face */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+}
+
+.iso-face-bottom {
+    position: absolute;
+    inset: 0;
+    border: 1px solid rgba(26, 26, 26, 0.3);
+    transform: translateZ(-24px);
+    /* Box depth */
+    background: rgba(0, 0, 0, 0.02);
+    z-index: 0;
+}
+
+/* Connecting edges for wireframe */
+.iso-edge {
+    position: absolute;
+    width: 1px;
+    height: 24px;
+    /* Matches translateZ depth */
+    background: rgba(26, 26, 26, 0.3);
+    transform-origin: top;
+    z-index: 1;
+}
+
+.iso-edge-1 {
+    top: 0;
+    left: 0;
+    transform: rotateX(-90deg);
+}
+
+.iso-edge-2 {
+    top: 0;
+    right: 0;
+    transform: rotateX(-90deg);
+}
+
+.iso-edge-3 {
+    bottom: 0;
+    left: 0;
+    transform: rotateX(-90deg);
+}
+
+.iso-edge-4 {
+    bottom: 0;
+    right: 0;
+    transform: rotateX(-90deg);
+}
+
+/* Specific setup for the 4 small boxes */
+.small-box-container {
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 12px;
+    transform-style: preserve-3d;
+}
+
+.small-iso-box {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+}
+
+/* The vertical dashed line connecting the whole stack */
+.vertical-connector {
+    position: absolute;
+    left: 50%;
+    top: 100px;
+    bottom: 80px;
+    width: 1px;
+    border-left: 2px dashed rgba(26, 26, 26, 0.2);
+    z-index: 0;
+    pointer-events: none;
+}
+
+/* Navigation buttons */
+.nav-btn {
+    padding: 0.25rem 0.875rem;
+    border: 1px solid #1a1a1a;
+    border-radius: 9999px;
+    font-size: 0.8125rem;
+    font-family: 'Inter', sans-serif;
+    background-color: transparent;
+    color: #1a1a1a;
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+}
+
+.nav-btn.dark {
+    background-color: #1a1a1a;
+    color: #FAFAF7;
+}
+
+/* Crop marks around the inner box */
+.crop-mark {
+    position: absolute;
+    background-color: #1a1a1a;
+    opacity: 0.6;
+}
+
+.crop-v {
+    width: 1px;
+    height: 12px;
+}
+
+.crop-h {
+    height: 1px;
+    width: 12px;
+}
+
+/* Crosshairs in the background */
+.bg-crosshair {
+    position: absolute;
+    width: 24px;
+    height: 24px;
+    pointer-events: none;
+    opacity: 0.4;
+}
+
+.bg-crosshair::before {
+    content: '';
+    position: absolute;
+    top: 11px;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: #1a1a1a;
+}
+
+.bg-crosshair::after {
+    content: '';
+    position: absolute;
+    left: 11px;
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    background: #1a1a1a;
+}
