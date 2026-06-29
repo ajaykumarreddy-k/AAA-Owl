@@ -1,11 +1,11 @@
 import { motion } from 'framer-motion';
-import s1 from "../../../screenshots/S1_active_ontology.png";
-import s2 from "../../../screenshots/S2_class_hierarchy_asserted.png";
-import s3 from "../../../screenshots/S3_ontology_metrics.png";
-import s4 from "../../../screenshots/S4_reasoner_output.png";
-import s5 from "../../../screenshots/S5_class_hierarchy_inferred.png";
-import s6 from "../../../screenshots/S6_ontograf_visualization.png";
-import s7 from "../../../screenshots/S7_dl_query_results.png";
+import s1 from "../../screenshots/S1_active_ontology.png";
+import s2 from "../../screenshots/S2_class_hierarchy_asserted.png";
+import s3 from "../../screenshots/S3_ontology_metrics.png";
+import s4 from "../../screenshots/S4_reasoner_output.png";
+import s5 from "../../screenshots/S5_class_hierarchy_inferred.png";
+import s6 from "../../screenshots/S6_ontograf_visualization.png";
+import s7 from "../../screenshots/S7_dl_query_results.png";
 import arc1 from "../../Architecture.png";
 import arc2 from "../../Architecture2.png";
 
